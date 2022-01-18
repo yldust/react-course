@@ -31,7 +31,7 @@ class Registration extends React.Component {
             <>
                 {
                 this.props.isLoggedIn ? (
-                    <p>{this.props.authToken} You are logged in <button onClick={this.goToProfile}>Go to profile</button></p>
+                    <p>You are logged in <Link to="/profile">Go to profile</Link></p>
                 ) : (
                 <form>
                     <h1>Регистрация</h1>
