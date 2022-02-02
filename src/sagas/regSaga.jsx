@@ -1,5 +1,5 @@
-import { REGISTER, logIn } from "../actions";
-import { serverSignIn } from "../api/api";
+import { REGISTER, logIn } from "../modules/Auth";
+import { serverSignIn } from "../api";
 import { takeEvery, call, put } from "redux-saga/effects";
 
 export function* registerSaga(action) {

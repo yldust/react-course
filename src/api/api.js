@@ -18,35 +18,44 @@ export const serverSignIn = (email, password, name) => {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({email, password, name, surname: 'without'})
-        }
-    ).then(res => res.json());
+        })
+        .then(res => res.json())
+        .catch((error) => error);
 };
 
 export const getCard = (token) => {
     return fetch(
         `https://loft-taxi.glitch.me/card?token=${token}`
-    ).then(res => res.json());
+    )
+    .then(res => res.json())
+    .catch((error) => error);
 };
 
-export const setCard = (cardNumber, expiryDate, cardName, cvc, token) => {
+export const setCard = (cardNumber, expiryDate, nameOwnerCard, cvc, token) => {
     return fetch("https://loft-taxi.glitch.me/card", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(cardNumber, expiryDate, cardName, cvc, token),
-    }).then((response) => response.json());
+        body: JSON.stringify(cardNumber, expiryDate, nameOwnerCard, cvc, token),
+    })
+    .then(res => res.json())
+    .catch((error) => error);
 };
 
 export const getAddressList = () => {
     return fetch(
         "https://loft-taxi.glitch.me/addressList"
-    ).then(res => res.json());
+    )
+    .then(res => res.json())
+    .catch((error) => error);
 };
 
 export const getRoute = (from, where) => {
     return fetch(
         `https://loft-taxi.glitch.me/route?address1=${from}&address2=${where}`
-    ).then(res => res.json());
+    )
+    .then(res => res.json())
+    .catch((error) => error);
 };
 
