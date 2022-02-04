@@ -70,7 +70,7 @@ export const RegistrationForm = ({ useDispatchHook = useDispatch }) => {
                             </Button>
                             <div>
                                 <Typography  component="span" align="left">
-                                    <Link to="/login">Войти</Link>
+                                    <Link to="/">Войти</Link>
                                 </Typography>
                             </div>
                         </div>

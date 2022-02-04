@@ -1,7 +1,8 @@
-import React from "react";
-import {connect, useDispatch} from 'react-redux';
+import React, {useEffect} from "react";
+import {connect} from 'react-redux';
 import {
     getCardData,
+    getRequest,
     sendData,
     formError,
     getErrors
@@ -13,14 +14,12 @@ import Button from '@material-ui/core/Button';
 import {TextField} from "final-form-material-ui";
 import formatPattern from 'format-string-by-pattern';
 
-const PaymentForm = ({cardData, errors, sendData, formError, useDispatchHook = useDispatch}) => {
-    const dispatch = useDispatchHook();
-
+const PaymentForm = ({cardData, getRequest, sendData, errors, formError}) => {
     const handleSubmit = (values) => {
-        if (!!values.cardNumber && !!values.expiryDate && !!values.nameOwnerCard && !!values.cvc) {
-            dispatch(sendData({ ...values }));
+        if (!!values.cardNumber && !!values.expiryDate && !!values.nameCard && !!values.cvc) {
+            sendData({ ...values });
         } else {
-            dispatch(formError('Все поля должны быть заполнены'));
+            formError('Все поля должны быть заполнены');
         }
     };
 
@@ -62,7 +61,7 @@ const PaymentForm = ({cardData, errors, sendData, formError, useDispatchHook = u
                     <div>
                         <Field
                             component={TextField}
-                            name="nameOwnerCard"
+                            name="nameCard"
                             label="Имя владельца"
                             fullWidth={true}
                             required
@@ -102,8 +101,9 @@ const PaymentForm = ({cardData, errors, sendData, formError, useDispatchHook = u
 const mapStateToProps = (state) => ({
     cardData: getCardData(state),
     errors: getErrors(state),
+    token: state.auth.token
 });
 
-const mapDispatchToProps = { sendData, formError };
+const mapDispatchToProps = { sendData, getRequest, formError };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaymentForm);

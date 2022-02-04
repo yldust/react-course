@@ -5,19 +5,22 @@ import {
     sendData,
     setRequestSuccess,
     setRequestError,
-    getCardId,
+    getRequest,
+    getRequestSuccess,
     changeIsEdit,
     getRequestError,
-    formError
 } from './actions';
 
-const blank = { cardNumber: '', expiryDate: '', nameOwnerCard: '', cvc: '' };
+const blank = { cardNumber: '', expiryDate: '', nameCard: '', cvc: '' };
 
 const card = handleActions(
     {
         [sendData]: () => blank,
-        [setRequestSuccess]: (_state, action) => action.payload,
+        [setRequestSuccess]: (state, action) => action.payload,
         [setRequestError]: () => blank,
+        [getRequest]: () => blank,
+        [getRequestSuccess]: () => (state, action) => action.payload,
+        [getRequestError]: () => blank,
     },
     blank
 );
@@ -26,26 +29,18 @@ const isEdit = handleActions(
     {
         [setRequestSuccess]: () => false,
         [changeIsEdit]: (state, action) => action.payload
-
     },
     false
-);
-
-const cardId = handleActions(
-    {
-        [getCardId]: (state, action) => action.payload,
-        [getRequestError]: () => null,
-        [formError]: () => null,
-    },
-    null
 );
 
 const errors = handleActions(
     {
         [setRequestSuccess]: () => null,
+        [getRequestSuccess]: () => null,
         [setRequestError]: (state, action) => action.payload.error,
+        [getRequestError]: (state, action) => action.payload.error,
     },
     null
 );
 
-export default combineReducers({ card, cardId, errors, isEdit });
+export default combineReducers({ card, errors, isEdit });

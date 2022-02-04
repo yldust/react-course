@@ -5,11 +5,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import {logOut} from "../../modules/Auth";
+import {LocalStorageService, StorageKeys} from '../../helpers/localStage';
 
+const localStorageService = new LocalStorageService();
 
 const Header = ({ isLoggedIn, logOut }) => {
     const handleLogout = (event) => {
         event.preventDefault();
+        localStorageService.delete(StorageKeys.LOGIN_DATA);
         logOut();
     };
 

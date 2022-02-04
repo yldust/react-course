@@ -2,7 +2,8 @@ import {
     sendData,
     setRequestSuccess,
     setRequestError,
-    getCardId,
+    getRequest,
+    getRequestSuccess,
     getRequestError
 } from '../modules/Payment';
 
@@ -33,10 +34,10 @@ export function* sendCardSagaWatch() {
 function* getCardDataSaga() {
     try {
         const token = yield select(getToken);
-        const data = yield call(getCard, { token });
+        const data = yield call(getCard, token);
 
-        if (!data.id) {
-            yield put(getCardId(data.id));
+        if (!data) {
+            yield put(getRequestSuccess(data));
         } else {
             return put(getRequestError("Не удалось получить данные!"));
         }
@@ -46,10 +47,10 @@ function* getCardDataSaga() {
 }
 
 function* getCardDataSagaWatch() {
-    yield takeEvery(getCardId, getCardDataSaga);
+    yield takeEvery(getRequest, getCardDataSaga);
 }
 
 export function* paymentSaga () {
     yield fork(sendCardSagaWatch);
-   // yield fork(getCardDataSagaWatch);
+    yield fork(getCardDataSagaWatch);
 }

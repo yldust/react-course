@@ -2,7 +2,7 @@ import { LOG_IN, LOG_OUT } from "./actions";
 
 const initialState = {
     isLoggedIn: false,
-    authToken: null
+    token: null
 };
 
 export default (state = initialState, action) => {
@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
         case LOG_IN: {
             return {
                 isLoggedIn: true,
-                authToken: action.token
+                token: action.payload
             }
         }
         case LOG_OUT: {

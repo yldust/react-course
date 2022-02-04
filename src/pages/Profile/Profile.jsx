@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import SendCardDataSuccess from "./SendCardDataSuccess";
 import PaymentForm from "./PaymentForm";
-import {changeIsEdit, isCardData} from '../../modules/Payment';
+import {getRequest, changeIsEdit, isCardData} from '../../modules/Payment';
 
 class Profile extends React.Component {
+
+    componentDidMount() {
+        this.props.getRequest();
+    }
+
     toggleEdit = () => {
         this.props.changeIsEdit(!this.props.isEdit);
     }
@@ -24,6 +29,6 @@ const mapStateToProps = (state) => ({
     isEdit: state.payment.isEdit
 });
 
-const mapDispatchToProps = {changeIsEdit}
+const mapDispatchToProps = {changeIsEdit, getRequest}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

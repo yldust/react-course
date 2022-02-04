@@ -5,7 +5,7 @@ export const REGISTER = 'REGISTER';
 
 export const logIn = (token) => ({
     type: LOG_IN,
-    token
+    payload: token
 })
 export const logOut = () => ({type: LOG_OUT})
 
